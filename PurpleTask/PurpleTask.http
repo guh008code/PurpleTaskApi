@@ -1,0 +1,6 @@
+@PurpleTask_HostAddress = http://localhost:5236
+
+GET {{PurpleTask_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
