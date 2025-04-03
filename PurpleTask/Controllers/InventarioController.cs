@@ -17,19 +17,19 @@ namespace PurpleTask.Controllers
             this.inventarioRepositorio = inventarioRepositorio;
         }
 
-        [HttpGet("ListarTodos")]
+        [HttpGet("ListarTodos/{idInstalacao}")]
         [Authorize(Roles = "inventario")]
-        public async Task<ActionResult<ResponseModel<List<AvlItm>>>> ListarTodos()
+        public async Task<ActionResult<ResponseModel<List<AvlItm>>>> ListarTodos(int idInstalacao)
         {
-            var usuarios = await inventarioRepositorio.ListarTodos();
+            var usuarios = await inventarioRepositorio.ListarTodos(idInstalacao);
             return Ok(usuarios);
         }
 
-        [HttpGet("BuscarPorId/{idIventario}")]
+        [HttpGet("BuscarPorId/{idIventario}/{idInstalacao}")]
         [Authorize(Roles = "inventario")]
-        public async Task<ActionResult<ResponseModel<AvlItm>>> BuscarPorId(int idIventario)
+        public async Task<ActionResult<ResponseModel<AvlItm>>> BuscarPorId(int idIventario, int idInstalacao)
         {
-            var inventarios = await inventarioRepositorio.BuscarPorId(idIventario);
+            var inventarios = await inventarioRepositorio.BuscarPorId(idIventario, idInstalacao);
             return Ok(inventarios);
         }
 

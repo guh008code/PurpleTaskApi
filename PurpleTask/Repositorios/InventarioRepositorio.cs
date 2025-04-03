@@ -11,15 +11,24 @@ namespace PurpleTask.Repositorios
         {
             _dbContext = purpleTaskDBContex;
         }
-        public async Task<ResponseModel<List<AvlItm>>> ListarTodos()
+        public async Task<ResponseModel<List<AvlItm>>> ListarTodos(int idInstalacao)
         {
             ResponseModel<List<AvlItm>> resposta = new ResponseModel<List<AvlItm>>();
 
             try
             {
-                var inventarios = await _dbContext.AvlItms.ToListAsync();
+                var inventarios = await _dbContext.AvlItms.Where(x => x.AvlItmIstId == idInstalacao).ToListAsync();
+
+                //var inventarios = await _dbContext.AvlItms.FirstOrDefaultAsync(x => x.AvlItmIstId == idInstalacao);
+
+                if (inventarios == null)
+                {
+                    resposta.Mensagem = "Nenhum Registro foi localizado";
+                    return resposta;
+                }
+
                 resposta.Dados = inventarios;
-                resposta.Mensagem = "Todos dados foram coletados";
+                resposta.Mensagem = "Registros localizados";
                 return resposta;
 
             }
@@ -32,13 +41,13 @@ namespace PurpleTask.Repositorios
 
         }
 
-        public async Task<ResponseModel<AvlItm>> BuscarPorId(int id)
+        public async Task<ResponseModel<AvlItm>> BuscarPorId(int id, int idInstalacao)
         {
             ResponseModel<AvlItm> resposta = new ResponseModel<AvlItm>();
 
             try
             {
-                var usuarios = await _dbContext.AvlItms.FirstOrDefaultAsync(x => x.AvlItmId == id);
+                var usuarios = await _dbContext.AvlItms.FirstOrDefaultAsync(x => x.AvlItmId == id && x.AvlItmIstId == idInstalacao);
 
                 if (usuarios == null)
                 {

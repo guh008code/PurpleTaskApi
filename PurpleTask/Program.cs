@@ -67,7 +67,9 @@ namespace PurpleTask
 
             builder.Services.AddScoped<IAcessoRepositorio, AcessoRepositorio>();
             builder.Services.AddScoped<IInventarioRepositorio, InventarioRepositorio>();
-
+            builder.Services.AddScoped<ISetorRepositorio, SetorRepositorio>();
+            builder.Services.AddScoped<ICentroDeCustoRepositorio, CentroDeCustoRepositorio>();
+            builder.Services.AddScoped<ILocalRepositorio, LocalRepositorio>();
 
             var key = Encoding.ASCII.GetBytes(ConfigurationUtils.PrivateKey);
             builder.Services.AddAuthentication(options =>
@@ -94,12 +96,12 @@ namespace PurpleTask
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
+            //if (app.Environment.IsDevelopment())
+            //{
                 app.UseSwagger();
                 //app.UseSwaggerUI();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API PurpleTasks v1"));
-            }
+            //}
 
             app.UseHttpsRedirection();
             app.UseRouting();
