@@ -28,11 +28,12 @@ namespace PurpleTask.Repositorios
                     resposta.Status = false;
                     return resposta;
                 }
-
+                resposta.Dados.IdUser = usuarios.UsrId.ToString();
+                resposta.Dados.IdEmpresa = usuarios.UsrEpsId.ToString();
                 resposta.Dados.Nome = usuarios.UsrNom;
+                resposta.Dados.IdPerfil = usuarios.UsrPfl.ToString();
                 resposta.Dados.Email = usuarios.UsrEma;
                 resposta.Dados.Instalacao = usuarios.UsrIstId.ToString();
-                resposta.Dados.Empresa = usuarios.UsrEpsId.ToString();
                 resposta.Dados.AcessToken = ConfigurationUtils.GenerateToken(usuarios);
 
                 resposta.Mensagem = "Login e token gerado com sucesso.";

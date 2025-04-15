@@ -11,13 +11,14 @@ namespace PurpleTask.Repositorios
         {
             _dbContext = purpleTaskDBContex;
         }
-        public async Task<ResponseModel<List<AvlItm>>> ListarTodos(int idInstalacao)
+        public async Task<ResponseModel<List<AvlItm>>> ListarTodos(int idEmpresa, int idInstalacao)
         {
             ResponseModel<List<AvlItm>> resposta = new ResponseModel<List<AvlItm>>();
 
             try
             {
-                var inventarios = await _dbContext.AvlItms.Where(x => x.AvlItmIstId == idInstalacao).ToListAsync();
+                var inventarios = await _dbContext.AvlItms.Where(x => x.AvlItmEpsId == idEmpresa &&
+                                                                 x.AvlItmIstId == idInstalacao).ToListAsync();
 
                 //var inventarios = await _dbContext.AvlItms.FirstOrDefaultAsync(x => x.AvlItmIstId == idInstalacao);
 

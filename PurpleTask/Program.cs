@@ -17,6 +17,12 @@ namespace PurpleTask
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            //builder.WebHost.ConfigureKestrel(options =>
+            //{
+            //    options.ListenAnyIP(1458); // Permite conexões de qualquer IP na porta 1458
+            //});
+
+
             // Add services to the container.
 
             builder.Services.AddControllers();
@@ -70,6 +76,7 @@ namespace PurpleTask
             builder.Services.AddScoped<ISetorRepositorio, SetorRepositorio>();
             builder.Services.AddScoped<ICentroDeCustoRepositorio, CentroDeCustoRepositorio>();
             builder.Services.AddScoped<ILocalRepositorio, LocalRepositorio>();
+            builder.Services.AddScoped<IEmpresaRepositorio, EmpresaRepositorio>();
 
             var key = Encoding.ASCII.GetBytes(ConfigurationUtils.PrivateKey);
             builder.Services.AddAuthentication(options =>
