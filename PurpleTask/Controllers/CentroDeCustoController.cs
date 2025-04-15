@@ -27,7 +27,7 @@ namespace PurpleTask.Controllers
 
         [HttpGet("ListarTodos/{idEmpresa}/{idLocal}/{idInstalacao}")]
         [Authorize(Roles = "centrodecusto")]
-        public async Task<ActionResult<ResponseModel<List<Cec>>>> ListarTodos(int? idEmpresa, int? idLocal, int idInstalacao)
+        public async Task<ActionResult<ResponseModel<List<Cec>>>> ListarTodos(int idEmpresa, int idLocal, int idInstalacao)
         {
             var centroDeCustos = await centroDeCustoRepositorio.ListarTodos(idEmpresa, idLocal, idInstalacao);
             return Ok(centroDeCustos);

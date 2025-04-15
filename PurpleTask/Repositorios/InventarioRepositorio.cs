@@ -42,21 +42,23 @@ namespace PurpleTask.Repositorios
 
         }
 
-        public async Task<ResponseModel<AvlItm>> BuscarPorId(int id, int idInstalacao)
+        public async Task<ResponseModel<AvlItm>> BuscarPorId(int id, int idEmpresa, int idInstalacao)
         {
             ResponseModel<AvlItm> resposta = new ResponseModel<AvlItm>();
 
             try
             {
-                var usuarios = await _dbContext.AvlItms.FirstOrDefaultAsync(x => x.AvlItmId == id && x.AvlItmIstId == idInstalacao);
+                var inventario = await _dbContext.AvlItms.FirstOrDefaultAsync(x => x.AvlItmId == id 
+                                                                            && x.AvlItmEpsId == idEmpresa
+                                                                            && x.AvlItmIstId == idInstalacao);
 
-                if (usuarios == null)
+                if (inventario == null)
                 {
                     resposta.Mensagem = "Nenhum Registro foi localizado";
                     return resposta;
                 }
 
-                resposta.Dados = usuarios;
+                resposta.Dados = inventario;
                 resposta.Mensagem = "Registro localizado";
                 return resposta;
 

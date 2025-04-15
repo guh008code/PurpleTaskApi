@@ -6,7 +6,7 @@ namespace PurpleTask.Repositorios.Interfaces
     {
         Task<ResponseModel<Cec>> BuscarPorId(int id, int idEmpresa, int idInstalacao);
 
-        Task<ResponseModel<List<Cec>>> ListarTodos(int? idEmpresa, int? idLocal, int idInstalacao);
+        Task<ResponseModel<List<Cec>>> ListarTodos(int idEmpresa, int idLocal, int idInstalacao);
 
     }
 }

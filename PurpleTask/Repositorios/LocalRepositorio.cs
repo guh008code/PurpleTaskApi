@@ -21,17 +21,17 @@ namespace PurpleTask.Repositorios
             {
                 if (!string.IsNullOrEmpty(id.ToString()) && !string.IsNullOrEmpty(idEmpresa.ToString()) && !string.IsNullOrEmpty(idInstalacao.ToString()))
                 {
-                    var usuarios = await _dbContext.Locs.FirstOrDefaultAsync(x => x.LocId == id
+                    var local = await _dbContext.Locs.FirstOrDefaultAsync(x => x.LocId == id
                                                                             && x.LocEpsId == idEmpresa
                                                                             && x.LocIstId == idInstalacao);
 
-                    if (usuarios == null)
+                    if (local == null)
                     {
                         resposta.Mensagem = "Nenhum Registro foi localizado";
                         return resposta;
                     }
 
-                    resposta.Dados = usuarios;
+                    resposta.Dados = local;
                     resposta.Mensagem = "Registro localizado";
 
                 }
@@ -55,30 +55,16 @@ namespace PurpleTask.Repositorios
                 if (!string.IsNullOrEmpty(idEmpresa.ToString()) && !string.IsNullOrEmpty(idInstalacao.ToString()))
                 {
 
-                    var usuarios = await _dbContext.Locs.Where(x => x.LocEpsId == idEmpresa
+                    var locais = await _dbContext.Locs.Where(x => x.LocEpsId == idEmpresa
                                                                             && x.LocIstId == idInstalacao).ToListAsync();
 
-                    if (usuarios == null)
+                    if (locais == null)
                     {
                         resposta.Mensagem = "Nenhum Registro foi localizado";
                         return resposta;
                     }
 
-                    resposta.Dados = usuarios;
-                    resposta.Mensagem = "Registro localizado";
-
-                }
-                else if (string.IsNullOrEmpty(idEmpresa.ToString()) && !string.IsNullOrEmpty(idInstalacao.ToString()))
-                {
-                    var usuarios = await _dbContext.Locs.Where(x => x.LocIstId == idInstalacao).ToListAsync();
-
-                    if (usuarios == null)
-                    {
-                        resposta.Mensagem = "Nenhum Registro foi localizado";
-                        return resposta;
-                    }
-
-                    resposta.Dados = usuarios;
+                    resposta.Dados = locais;
                     resposta.Mensagem = "Registro localizado";
 
                 }

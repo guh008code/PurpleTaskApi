@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PurpleTask.Models;
+using PurpleTask.Repositorios;
 using PurpleTask.Repositorios.Interfaces;
 
 namespace PurpleTask.Controllers
@@ -21,7 +22,15 @@ namespace PurpleTask.Controllers
         [Authorize(Roles = "empresa")]
         public async Task<ActionResult<ResponseModel<Ep>>> BuscarPorId(int idEmpresa, int idInstalacao)
         {
-            var empresas = await empresaRepositorio.BuscarPorId(idEmpresa, idInstalacao);
+            var empresa = await empresaRepositorio.BuscarPorId(idEmpresa, idInstalacao);
+            return Ok(empresa);
+        }
+
+        [HttpGet("ListarTodos/{idInstalacao}")]
+        [Authorize(Roles = "empresa")]
+        public async Task<ActionResult<ResponseModel<List<Ep>>>> ListarTodos(int idInstalacao)
+        {
+            var empresas = await empresaRepositorio.ListarTodos(idInstalacao);
             return Ok(empresas);
         }
 

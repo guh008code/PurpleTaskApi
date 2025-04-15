@@ -20,16 +20,16 @@ namespace PurpleTask.Repositorios
             {
                 if (!string.IsNullOrEmpty(id.ToString()) && !string.IsNullOrEmpty(idEmpresa.ToString()) && !string.IsNullOrEmpty(idInstalacao.ToString()))
                 {
-                    var usuarios = await _dbContext.Sets.FirstOrDefaultAsync(x => x.SetId == id
+                    var setor = await _dbContext.Sets.FirstOrDefaultAsync(x => x.SetId == id
                                                                             && x.SetEpsId == idEmpresa
                                                                             && x.SetIstId == idInstalacao);
-                    if (usuarios == null)
+                    if (setor == null)
                     {
                         resposta.Mensagem = "Nenhum Registro foi localizado";
                         return resposta;
                     }
 
-                    resposta.Dados = usuarios;
+                    resposta.Dados = setor;
                     resposta.Mensagem = "Registro localizado";
 
                 }
@@ -68,45 +68,6 @@ namespace PurpleTask.Repositorios
                     resposta.Dados = setores;
                     resposta.Mensagem = "Registro localizado";
 
-                }
-                else if (!string.IsNullOrEmpty(idEmpresa.ToString()) && !string.IsNullOrEmpty(idLocal.ToString()) && string.IsNullOrEmpty(idCentroDeCusto.ToString()) && !string.IsNullOrEmpty(idInstalacao.ToString()))
-                {
-                    var setores = await _dbContext.Sets.Where(x => x.SetEpsId == idEmpresa
-                                                                            && x.SetLocId == idLocal
-                                                                            && x.SetIstId == idInstalacao).ToListAsync();
-                    if (setores == null)
-                    {
-                        resposta.Mensagem = "Nenhum Registro foi localizado";
-                        return resposta;
-                    }
-
-                    resposta.Dados = setores;
-                    resposta.Mensagem = "Registro localizado";
-                }
-                else if (!string.IsNullOrEmpty(idEmpresa.ToString()) && string.IsNullOrEmpty(idLocal.ToString()) && string.IsNullOrEmpty(idCentroDeCusto.ToString()) && !string.IsNullOrEmpty(idInstalacao.ToString()))
-                {
-                    var setores = await _dbContext.Sets.Where(x => x.SetEpsId == idEmpresa
-                                                              && x.SetIstId == idInstalacao).ToListAsync();
-                    if (setores == null)
-                    {
-                        resposta.Mensagem = "Nenhum Registro foi localizado";
-                        return resposta;
-                    }
-
-                    resposta.Dados = setores;
-                    resposta.Mensagem = "Registro localizado";
-                }
-                else if (string.IsNullOrEmpty(idEmpresa.ToString()) && string.IsNullOrEmpty(idLocal.ToString()) && string.IsNullOrEmpty(idCentroDeCusto.ToString()) && !string.IsNullOrEmpty(idInstalacao.ToString()))
-                {
-                    var setores = await _dbContext.Sets.Where(x => x.SetIstId == idInstalacao).ToListAsync();
-                    if (setores == null)
-                    {
-                        resposta.Mensagem = "Nenhum Registro foi localizado";
-                        return resposta;
-                    }
-
-                    resposta.Dados = setores;
-                    resposta.Mensagem = "Registro localizado";
                 }
 
                 return resposta;

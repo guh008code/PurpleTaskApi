@@ -21,17 +21,17 @@ namespace PurpleTask.Repositorios
             {
                 if (!string.IsNullOrEmpty(id.ToString()) && !string.IsNullOrEmpty(idEmpresa.ToString()) && !string.IsNullOrEmpty(idInstalacao.ToString()))
                 {
-                    var usuarios = await _dbContext.Cecs.FirstOrDefaultAsync(x => x.CecId == id
+                    var custos = await _dbContext.Cecs.FirstOrDefaultAsync(x => x.CecId == id
                                                                             && x.CecEpsId == idEmpresa
                                                                             && x.CecIstId == idInstalacao);
 
-                    if (usuarios == null)
+                    if (custos == null)
                     {
                         resposta.Mensagem = "Nenhum Registro foi localizado";
                         return resposta;
                     }
 
-                    resposta.Dados = usuarios;
+                    resposta.Dados = custos;
                     resposta.Mensagem = "Registro localizado";
 
                 }
@@ -46,7 +46,7 @@ namespace PurpleTask.Repositorios
             }
         }
 
-        public async Task<ResponseModel<List<Cec>>> ListarTodos(int? idEmpresa, int? idLocal, int idInstalacao)
+        public async Task<ResponseModel<List<Cec>>> ListarTodos(int idEmpresa, int idLocal, int idInstalacao)
         {
             ResponseModel<List<Cec>> resposta = new ResponseModel<List<Cec>>();
             //ResponseModel<Cec> resposta = new ResponseModel<Cec>();
@@ -58,35 +58,6 @@ namespace PurpleTask.Repositorios
                     var centroDeCustos = await _dbContext.Cecs.Where(x => x.CecEpsId == idEmpresa
                                                                             && x.CecLocId == idLocal
                                                                             && x.CecIstId == idInstalacao).ToListAsync();
-
-                    if (centroDeCustos == null)
-                    {
-                        resposta.Mensagem = "Nenhum Registro foi localizado";
-                        return resposta;
-                    }
-
-                    resposta.Dados = centroDeCustos;
-                    resposta.Mensagem = "Registros localizados";
-
-                }
-                else if (!string.IsNullOrEmpty(idEmpresa.ToString()) && string.IsNullOrEmpty(idLocal.ToString()) && !string.IsNullOrEmpty(idInstalacao.ToString()))
-                {
-                    var centroDeCustos = await _dbContext.Cecs.Where(x => x.CecEpsId == idEmpresa
-                                                                            && x.CecIstId == idInstalacao).ToListAsync();
-
-                    if (centroDeCustos == null)
-                    {
-                        resposta.Mensagem = "Nenhum Registro foi localizado";
-                        return resposta;
-                    }
-
-                    resposta.Dados = centroDeCustos;
-                    resposta.Mensagem = "Registros localizados";
-
-                }
-                else if (string.IsNullOrEmpty(idEmpresa.ToString()) && string.IsNullOrEmpty(idLocal.ToString()) && !string.IsNullOrEmpty(idInstalacao.ToString()))
-                {
-                    var centroDeCustos = await _dbContext.Cecs.Where(x => x.CecIstId == idInstalacao).ToListAsync();
 
                     if (centroDeCustos == null)
                     {

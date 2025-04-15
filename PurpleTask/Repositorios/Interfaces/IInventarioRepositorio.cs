@@ -6,7 +6,7 @@ namespace PurpleTask.Repositorios.Interfaces
     {
         Task<ResponseModel<List<AvlItm>>> ListarTodos(int idEmpresa, int idInstalacao);
 
-        Task<ResponseModel<AvlItm>> BuscarPorId(int id, int idInstalacao);
+        Task<ResponseModel<AvlItm>> BuscarPorId(int id, int idEmpresa, int idInstalacao);
 
         Task<ResponseModel<AvlItm>> Adicionar(AvlItm inventario);
         Task<ResponseModel<List<AvlItm>>> Atualizar(AvlItm inventario);

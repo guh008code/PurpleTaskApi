@@ -21,8 +21,8 @@ namespace PurpleTask.Controllers
         [Authorize(Roles = "setor")]
         public async Task<ActionResult<ResponseModel<Set>>> BuscarPorId(int id, int idEmpresa, int idInstalacao)
         {
-            var setores = await setorRepositorio.BuscarPorId(id, idEmpresa, idInstalacao);
-            return Ok(setores);
+            var setor = await setorRepositorio.BuscarPorId(id, idEmpresa, idInstalacao);
+            return Ok(setor);
         }
 
         [HttpGet("ListarTodos/{idEmpresa}/{idLocal}/{idCentroDeCusto}/{idInstalacao}")]

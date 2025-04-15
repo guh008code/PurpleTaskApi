@@ -20,16 +20,16 @@ namespace PurpleTask.Repositorios
             {
                 if (!string.IsNullOrEmpty(idEmpresa.ToString()) && !string.IsNullOrEmpty(idInstalacao.ToString()))
                 {
-                    var usuarios = await _dbContext.Eps.FirstOrDefaultAsync(x => x.EpsId == idEmpresa
+                    var empresa = await _dbContext.Eps.FirstOrDefaultAsync(x => x.EpsId == idEmpresa
                                                                             && x.EpsIstId == idInstalacao);
 
-                    if (usuarios == null)
+                    if (empresa == null)
                     {
                         resposta.Mensagem = "Nenhum Registro foi localizado";
                         return resposta;
                     }
 
-                    resposta.Dados = usuarios;
+                    resposta.Dados = empresa;
                     resposta.Mensagem = "Registro localizado";
 
                 }
@@ -44,5 +44,38 @@ namespace PurpleTask.Repositorios
             }
         }
 
+
+
+        public async Task<ResponseModel<List<Ep>>> ListarTodos(int idInstalacao)
+        {
+            ResponseModel<List<Ep>> resposta = new ResponseModel<List<Ep>>();
+            //ResponseModel<Loc> resposta = new ResponseModel<Loc>();
+            try
+            {
+                if (!string.IsNullOrEmpty(idInstalacao.ToString()))
+                {
+
+                    var empresas = await _dbContext.Eps.Where(x => x.EpsIstId == idInstalacao).ToListAsync();
+
+                    if (empresas == null)
+                    {
+                        resposta.Mensagem = "Nenhum Registro foi localizado";
+                        return resposta;
+                    }
+
+                    resposta.Dados = empresas;
+                    resposta.Mensagem = "Registro localizado";
+
+                }
+
+                return resposta;
+            }
+            catch (Exception ex)
+            {
+                resposta.Mensagem = ex.Message;
+                resposta.Status = false;
+                return resposta;
+            }
+        }
     }
 }

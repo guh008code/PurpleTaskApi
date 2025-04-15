@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PurpleTask.Models;
 using PurpleTask.Repositorios.Interfaces;
@@ -21,15 +20,15 @@ namespace PurpleTask.Controllers
         [Authorize(Roles = "inventario")]
         public async Task<ActionResult<ResponseModel<List<AvlItm>>>> ListarTodos(int idEmpresa, int idInstalacao)
         {
-            var usuarios = await inventarioRepositorio.ListarTodos(idEmpresa, idInstalacao);
-            return Ok(usuarios);
+            var inventario = await inventarioRepositorio.ListarTodos(idEmpresa, idInstalacao);
+            return Ok(inventario);
         }
 
-        [HttpGet("BuscarPorId/{idIventario}/{idInstalacao}")]
+        [HttpGet("BuscarPorId/{idIventario}/{idEmpresa}/{idInstalacao}")]
         [Authorize(Roles = "inventario")]
-        public async Task<ActionResult<ResponseModel<AvlItm>>> BuscarPorId(int idIventario, int idInstalacao)
+        public async Task<ActionResult<ResponseModel<AvlItm>>> BuscarPorId(int idIventario, int idEmpresa, int idInstalacao)
         {
-            var inventarios = await inventarioRepositorio.BuscarPorId(idIventario, idInstalacao);
+            var inventarios = await inventarioRepositorio.BuscarPorId(idIventario, idEmpresa, idInstalacao);
             return Ok(inventarios);
         }
 
