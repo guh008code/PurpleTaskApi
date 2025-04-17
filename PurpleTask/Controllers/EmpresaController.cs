@@ -20,7 +20,7 @@ namespace PurpleTask.Controllers
 
         [HttpGet("BuscarPorId/{idEmpresa}/{idInstalacao}")]
         [Authorize(Roles = "empresa")]
-        public async Task<ActionResult<ResponseModel<Ep>>> BuscarPorId(int idEmpresa, int idInstalacao)
+        public async Task<ActionResult<ResponseModel<Ep>>> BuscarPorId(int? idEmpresa, int? idInstalacao)
         {
             var empresa = await empresaRepositorio.BuscarPorId(idEmpresa, idInstalacao);
             return Ok(empresa);
@@ -28,7 +28,7 @@ namespace PurpleTask.Controllers
 
         [HttpGet("ListarTodos/{idInstalacao}")]
         [Authorize(Roles = "empresa")]
-        public async Task<ActionResult<ResponseModel<List<Ep>>>> ListarTodos(int idInstalacao)
+        public async Task<ActionResult<ResponseModel<List<Ep>>>> ListarTodos(int? idInstalacao)
         {
             var empresas = await empresaRepositorio.ListarTodos(idInstalacao);
             return Ok(empresas);

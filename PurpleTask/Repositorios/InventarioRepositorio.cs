@@ -11,7 +11,7 @@ namespace PurpleTask.Repositorios
         {
             _dbContext = purpleTaskDBContex;
         }
-        public async Task<ResponseModel<List<AvlItm>>> ListarTodos(int idEmpresa, int idInstalacao)
+        public async Task<ResponseModel<List<AvlItm>>> ListarTodos(int? idEmpresa, int? idInstalacao)
         {
             ResponseModel<List<AvlItm>> resposta = new ResponseModel<List<AvlItm>>();
 
@@ -42,13 +42,42 @@ namespace PurpleTask.Repositorios
 
         }
 
-        public async Task<ResponseModel<AvlItm>> BuscarPorId(int id, int idEmpresa, int idInstalacao)
+        public async Task<ResponseModel<AvlItm>> BuscarPorId(int? id, int? idEmpresa, int? idInstalacao)
         {
             ResponseModel<AvlItm> resposta = new ResponseModel<AvlItm>();
 
             try
             {
                 var inventario = await _dbContext.AvlItms.FirstOrDefaultAsync(x => x.AvlItmId == id 
+                                                                            && x.AvlItmEpsId == idEmpresa
+                                                                            && x.AvlItmIstId == idInstalacao);
+
+                if (inventario == null)
+                {
+                    resposta.Mensagem = "Nenhum Registro foi localizado";
+                    return resposta;
+                }
+
+                resposta.Dados = inventario;
+                resposta.Mensagem = "Registro localizado";
+                return resposta;
+
+            }
+            catch (Exception ex)
+            {
+                resposta.Mensagem = ex.Message;
+                resposta.Status = false;
+                return resposta;
+            }
+        }
+
+        public async Task<ResponseModel<AvlItm>> BuscarPlaqueta(int? AvlItmPlq, int? idEmpresa, int? idInstalacao)
+        {
+            ResponseModel<AvlItm> resposta = new ResponseModel<AvlItm>();
+
+            try
+            {
+                var inventario = await _dbContext.AvlItms.FirstOrDefaultAsync(x => x.AvlItmPlq == AvlItmPlq
                                                                             && x.AvlItmEpsId == idEmpresa
                                                                             && x.AvlItmIstId == idInstalacao);
 
@@ -174,7 +203,7 @@ namespace PurpleTask.Repositorios
             }
         }
 
-        public async Task<ResponseModel<List<AvlItm>>> Apagar(int idInventario)
+        public async Task<ResponseModel<List<AvlItm>>> Apagar(int? idInventario)
         {
             ResponseModel<List<AvlItm>> resposta = new ResponseModel<List<AvlItm>>();
 

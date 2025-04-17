@@ -14,7 +14,7 @@ namespace PurpleTask.Repositorios
             _dbContext = purpleTaskDBContex;
         }
 
-        public async Task<ResponseModel<Loc>> BuscarPorId(int id, int idEmpresa, int idInstalacao)
+        public async Task<ResponseModel<Loc>> BuscarPorId(int? id, int? idEmpresa, int? idInstalacao)
         {
             ResponseModel<Loc> resposta = new ResponseModel<Loc>();
             try
@@ -46,7 +46,7 @@ namespace PurpleTask.Repositorios
             }
         }
 
-        public async Task<ResponseModel<List<Loc>>> ListarTodos(int idEmpresa, int idInstalacao)
+        public async Task<ResponseModel<List<Loc>>> ListarTodos(int? idEmpresa, int? idInstalacao)
         {
             ResponseModel<List<Loc>> resposta = new ResponseModel<List<Loc>>();
             //ResponseModel<Loc> resposta = new ResponseModel<Loc>();

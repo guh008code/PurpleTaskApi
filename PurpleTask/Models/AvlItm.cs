@@ -23,9 +23,9 @@ public partial class AvlItm
     [Required]
     public int? AvlItmSetId { get; set; }
 
-    public string? AvlItmPlq { get; set; }
+    public int? AvlItmPlq { get; set; }
 
-    public string? AvlItmPlqAnt { get; set; }
+    public int? AvlItmPlqAnt { get; set; }
 
     [Required(ErrorMessage ="Descrição é Obrigatório")]
     [MaxLength(100, ErrorMessage ="A Descrição não pode ser maior que 100 caracteres")]

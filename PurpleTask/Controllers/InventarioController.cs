@@ -18,7 +18,7 @@ namespace PurpleTask.Controllers
 
         [HttpGet("ListarTodos/{idEmpresa}/{idInstalacao}")]
         [Authorize(Roles = "inventario")]
-        public async Task<ActionResult<ResponseModel<List<AvlItm>>>> ListarTodos(int idEmpresa, int idInstalacao)
+        public async Task<ActionResult<ResponseModel<List<AvlItm>>>> ListarTodos(int? idEmpresa, int? idInstalacao)
         {
             var inventario = await inventarioRepositorio.ListarTodos(idEmpresa, idInstalacao);
             return Ok(inventario);
@@ -26,9 +26,17 @@ namespace PurpleTask.Controllers
 
         [HttpGet("BuscarPorId/{idIventario}/{idEmpresa}/{idInstalacao}")]
         [Authorize(Roles = "inventario")]
-        public async Task<ActionResult<ResponseModel<AvlItm>>> BuscarPorId(int idIventario, int idEmpresa, int idInstalacao)
+        public async Task<ActionResult<ResponseModel<AvlItm>>> BuscarPorId(int? idIventario, int? idEmpresa, int? idInstalacao)
         {
             var inventarios = await inventarioRepositorio.BuscarPorId(idIventario, idEmpresa, idInstalacao);
+            return Ok(inventarios);
+        }
+
+        [HttpGet("BuscarPlaqueta/{AvlItmPlq}/{idEmpresa}/{idInstalacao}")]
+        [Authorize(Roles = "inventario")]
+        public async Task<ActionResult<ResponseModel<AvlItm>>> BuscarPlaqueta(int? AvlItmPlq, int? idEmpresa, int? idInstalacao)
+        {
+            var inventarios = await inventarioRepositorio.BuscarPlaqueta(AvlItmPlq, idEmpresa, idInstalacao);
             return Ok(inventarios);
         }
 
@@ -50,7 +58,7 @@ namespace PurpleTask.Controllers
 
         [HttpPut("Apagar")]
         [Authorize(Roles = "inventario")]
-        public async Task<ActionResult<ResponseModel<List<AvlItm>>>> Apagar(int idInventario)
+        public async Task<ActionResult<ResponseModel<List<AvlItm>>>> Apagar(int? idInventario)
         {
             var inventarios = await inventarioRepositorio.Apagar(idInventario);
             return Ok(inventarios);
