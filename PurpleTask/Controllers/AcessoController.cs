@@ -19,12 +19,12 @@ namespace PurpleTask.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("Login/{email}/{senha}")]
+        [HttpPost("Login/")]
 
-        public async Task<ActionResult<ResponseModel<AuthToken>>> Login(string email, string senha)
+        public async Task<ActionResult<ResponseModel<AuthToken>>> Login(Login login)
         {
             //senha = ConfigurationUtils.Criptografar(senha);
-            var usuarios = await _acessoRepositorio.Login(email, senha);
+            var usuarios = await _acessoRepositorio.Login(login);
             return Ok(usuarios);
         }
 

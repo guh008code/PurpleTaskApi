@@ -12,15 +12,16 @@ namespace PurpleTask.Repositorios
             _dbContext = purpleTaskDBContex;
         }
 
-        public async Task<ResponseModel<AuthToken>> Login(string email, string senha)
+        public async Task<ResponseModel<AuthToken>> Login(Login login)
         {
             ResponseModel<AuthToken> resposta = new ResponseModel<AuthToken>();
             resposta.Dados = new AuthToken();
 
-            senha = ConfigurationUtils.Criptografar(senha.Replace("'",""));
+            login.Senha = ConfigurationUtils.Criptografar(login.Senha.Replace("'",""));
             try
             {
-                var usuarios = await _dbContext.Usrs.FirstOrDefaultAsync(user => user.UsrEma.ToLower() == email.ToLower() && user.UsrSnh == senha);
+
+                var usuarios = await _dbContext.Usrs.FirstOrDefaultAsync(user => user.UsrEma.ToLower() == login.Email.ToLower() && user.UsrSnh == login.Senha);
 
                 if (usuarios == null)
                 {
