@@ -77,6 +77,7 @@ namespace PurpleTask
             builder.Services.AddScoped<ICentroDeCustoRepositorio, CentroDeCustoRepositorio>();
             builder.Services.AddScoped<ILocalRepositorio, LocalRepositorio>();
             builder.Services.AddScoped<IEmpresaRepositorio, EmpresaRepositorio>();
+            builder.Services.AddScoped<IItemsRepositorio, ItemsRepositorio>();
 
             var key = Encoding.ASCII.GetBytes(ConfigurationUtils.PrivateKey);
             builder.Services.AddAuthentication(options =>

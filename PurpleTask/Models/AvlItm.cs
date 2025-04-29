@@ -9,26 +9,19 @@ namespace PurpleTask.Models;
 public partial class AvlItm
 {
     public int? AvlItmId { get; set; }
-
-    [Required]
-
+    [NotMapped]
     public int? AvlItmEpsId { get; set; }
-
-    [Required]
+    [NotMapped]
     public int? AvlItmLocId { get; set; }
-
-    [Required]
+    [NotMapped]
     public int? AvlItmCecId { get; set; }
-
-    [Required]
+    [NotMapped]
     public int? AvlItmSetId { get; set; }
 
     public int? AvlItmPlq { get; set; }
 
     public int? AvlItmPlqAnt { get; set; }
 
-    [Required(ErrorMessage ="Descrição é Obrigatório")]
-    [MaxLength(100, ErrorMessage ="A Descrição não pode ser maior que 100 caracteres")]
     public string? AvlItmDes { get; set; }
 
     public string? AvlItmComp { get; set; }
@@ -65,11 +58,11 @@ public partial class AvlItm
 
     [JsonIgnore]
     [NotMapped]
-    public virtual Ep AvlItmEps { get; set; } = null!;
+    public virtual Ep? AvlItmEps { get; set; } = null!;
 
     [JsonIgnore]
     [NotMapped]
-    public virtual Loc AvlItmLoc { get; set; } = null!;
+    public virtual Loc? AvlItmLoc { get; set; } = null!;
 
     [JsonIgnore]
     [NotMapped]
@@ -85,5 +78,5 @@ public partial class AvlItm
 
     [JsonIgnore]
     [NotMapped]
-    public virtual Usr AvlItmUsrInc { get; set; } = null!;
+    public virtual Usr? AvlItmUsrInc { get; set; } = null!;
 }

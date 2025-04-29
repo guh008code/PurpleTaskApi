@@ -13,6 +13,6 @@ namespace PurpleTask.Repositorios.Interfaces
         Task<ResponseModel<AvlItm>> Adicionar(AvlItm inventario);
         Task<ResponseModel<List<AvlItm>>> Atualizar(AvlItm inventario);
 
-        Task<ResponseModel<List<AvlItm>>> Apagar(int? id);
+        Task<ResponseModel<List<AvlItm>>> Apagar(int? idInventario);
     }
 }

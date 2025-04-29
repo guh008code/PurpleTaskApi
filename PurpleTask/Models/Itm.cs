@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PurpleTask.Models;
 
@@ -25,9 +26,10 @@ public partial class Itm
 
     public int? ItmIstId { get; set; }
 
+    [NotMapped]
     public virtual Usr? ItmUsrAlt { get; set; }
-
+    [NotMapped]
     public virtual Usr? ItmUsrExc { get; set; }
-
+    [NotMapped]
     public virtual Usr ItmUsrInc { get; set; } = null!;
 }

@@ -56,7 +56,7 @@ namespace PurpleTask.Controllers
             return Ok(inventarios);
         }
 
-        [HttpPut("Apagar")]
+        [HttpDelete("Apagar")]
         [Authorize(Roles = "inventario")]
         public async Task<ActionResult<ResponseModel<List<AvlItm>>>> Apagar(int? idInventario)
         {

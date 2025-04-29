@@ -125,10 +125,10 @@ namespace PurpleTask.Repositorios
                     AvlItmSts = inventario.AvlItmSts,
                     AvlItmUsrIncId = inventario.AvlItmUsrIncId,
                     AvlItmUsrAltId = inventario.AvlItmUsrAltId,
-                    AvlItmUsrExcId = inventario.AvlItmUsrExcId,
-                    AvlItmDatInc = inventario.AvlItmDatInc,
-                    AvlItmDatAlt = inventario.AvlItmDatAlt,
-                    AvlItmDatExc = inventario.AvlItmDatExc,
+                    AvlItmUsrExcId = (int?)null,
+                    AvlItmDatInc = DateTime.Now,
+                    AvlItmDatAlt = DateTime.Now,
+                    AvlItmDatExc = (DateTime?)null,
                     AvlItmIstId = inventario.AvlItmIstId
                 };
 
@@ -178,12 +178,12 @@ namespace PurpleTask.Repositorios
                 inventario.AvlItmSit = inventarios.AvlItmSit;
                 inventario.AvlItmVlrAqs = inventarios.AvlItmVlrAqs;
                 inventario.AvlItmSts = inventarios.AvlItmSts;
-                inventario.AvlItmUsrIncId = inventarios.AvlItmUsrIncId;
+                //inventario.AvlItmUsrIncId = inventarios.AvlItmUsrIncId;
                 inventario.AvlItmUsrAltId = inventarios.AvlItmUsrAltId;
-                inventario.AvlItmUsrExcId = inventarios.AvlItmUsrExcId;
-                inventario.AvlItmDatInc = inventarios.AvlItmDatInc;
-                inventario.AvlItmDatAlt = inventarios.AvlItmDatAlt;
-                inventario.AvlItmDatExc = inventarios.AvlItmDatExc;
+                //inventario.AvlItmUsrExcId = inventarios.AvlItmUsrExcId;
+                //inventario.AvlItmDatInc = inventarios.AvlItmDatInc;
+                inventario.AvlItmDatAlt = DateTime.Now;
+                //inventario.AvlItmDatExc = inventarios.AvlItmDatExc;
                 inventario.AvlItmIstId = inventarios.AvlItmIstId;
 
                 _dbContext.Update(inventario);
