@@ -28,6 +28,7 @@ namespace PurpleTask.Repositorios
                     if (local == null)
                     {
                         resposta.Mensagem = "Nenhum Registro foi localizado";
+                        resposta.Status = false;
                         return resposta;
                     }
 
@@ -61,6 +62,7 @@ namespace PurpleTask.Repositorios
                     if (locais == null)
                     {
                         resposta.Mensagem = "Nenhum Registro foi localizado";
+                        resposta.Status = false;
                         return resposta;
                     }
 

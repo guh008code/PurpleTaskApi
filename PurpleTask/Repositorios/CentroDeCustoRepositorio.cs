@@ -28,6 +28,7 @@ namespace PurpleTask.Repositorios
                     if (custos == null)
                     {
                         resposta.Mensagem = "Nenhum Registro foi localizado";
+                        resposta.Status = false;
                         return resposta;
                     }
 
@@ -62,6 +63,7 @@ namespace PurpleTask.Repositorios
                     if (centroDeCustos == null)
                     {
                         resposta.Mensagem = "Nenhum Registro foi localizado";
+                        resposta.Status = false;
                         return resposta;
                     }
 

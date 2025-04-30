@@ -26,6 +26,7 @@ namespace PurpleTask.Repositorios
                     if (empresa == null)
                     {
                         resposta.Mensagem = "Nenhum Registro foi localizado";
+                        resposta.Status = false;
                         return resposta;
                     }
 
@@ -54,12 +55,12 @@ namespace PurpleTask.Repositorios
             {
                 if (!string.IsNullOrEmpty(idInstalacao.ToString()))
                 {
-
                     var empresas = await _dbContext.Eps.Where(x => x.EpsIstId == idInstalacao).ToListAsync();
 
                     if (empresas == null)
                     {
                         resposta.Mensagem = "Nenhum Registro foi localizado";
+                        resposta.Status = false;
                         return resposta;
                     }
 

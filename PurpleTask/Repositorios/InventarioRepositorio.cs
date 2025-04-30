@@ -25,6 +25,7 @@ namespace PurpleTask.Repositorios
                 if (inventarios == null)
                 {
                     resposta.Mensagem = "Nenhum Registro foi localizado";
+                    resposta.Status = false;
                     return resposta;
                 }
 
@@ -55,6 +56,7 @@ namespace PurpleTask.Repositorios
                 if (inventario == null)
                 {
                     resposta.Mensagem = "Nenhum Registro foi localizado";
+                    resposta.Status = false;
                     return resposta;
                 }
 
@@ -71,24 +73,26 @@ namespace PurpleTask.Repositorios
             }
         }
 
-        public async Task<ResponseModel<AvlItm>> BuscarPlaqueta(int? AvlItmPlq, int? idEmpresa, int? idInstalacao)
+        public async Task<ResponseModel<List<AvlItm>>> BuscarPlaqueta(int? AvlItmPlq, int? idEmpresa, int? idInstalacao)
         {
-            ResponseModel<AvlItm> resposta = new ResponseModel<AvlItm>();
+            ResponseModel<List<AvlItm>> resposta = new ResponseModel<List<AvlItm>>();
 
             try
             {
-                var inventario = await _dbContext.AvlItms.FirstOrDefaultAsync(x => x.AvlItmPlq == AvlItmPlq
-                                                                            && x.AvlItmEpsId == idEmpresa
-                                                                            && x.AvlItmIstId == idInstalacao);
+                var inventarios = await _dbContext.AvlItms.Where(x => x.AvlItmPlq == AvlItmPlq && 
+                                                    x.AvlItmEpsId == idEmpresa &&
+                                                    x.AvlItmIstId == idInstalacao).ToListAsync();
 
-                if (inventario == null)
+
+                if (inventarios == null)
                 {
                     resposta.Mensagem = "Nenhum Registro foi localizado";
+                    resposta.Status = false;
                     return resposta;
                 }
 
-                resposta.Dados = inventario;
-                resposta.Mensagem = "Registro localizado";
+                resposta.Dados = inventarios;
+                resposta.Mensagem = "Registros localizados";
                 return resposta;
 
             }
@@ -160,6 +164,7 @@ namespace PurpleTask.Repositorios
                 if (inventario == null)
                 {
                     resposta.Mensagem = "Nenhum inventário encontrado.";
+                    resposta.Status = false;
                     return resposta;
                 }
 
@@ -214,6 +219,7 @@ namespace PurpleTask.Repositorios
                 if (inventarios == null)
                 {
                     resposta.Mensagem = "Nenhum inventário encontrado";
+                    resposta.Status = false;
                     return resposta;
                 }
 
