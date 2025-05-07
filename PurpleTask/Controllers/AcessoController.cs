@@ -27,7 +27,14 @@ namespace PurpleTask.Controllers
             var usuarios = await _acessoRepositorio.Login(login);
             return Ok(usuarios);
         }
-
+        [HttpPut("Atualizar")]
+        [Authorize(Roles = "acesso")]
+        public async Task<ActionResult<ResponseModel<Usr>>> Atualizar(Usr atualizar)
+        {
+            //senha = ConfigurationUtils.Criptografar(senha);
+            var usuario = await _acessoRepositorio.Atualizar(atualizar);
+            return Ok(usuario);
+        }
 
     }
 }

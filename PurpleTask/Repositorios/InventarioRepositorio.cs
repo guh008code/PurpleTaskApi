@@ -43,6 +43,73 @@ namespace PurpleTask.Repositorios
 
         }
 
+        public async Task<ResponseModel<List<AvlItm>>> ListarPorLocal(int? idEmpresa, int? idLocal, int? idInstalacao)
+        {
+            ResponseModel<List<AvlItm>> resposta = new ResponseModel<List<AvlItm>>();
+
+            try
+            {
+                var inventarios = await _dbContext.AvlItms.Where(x => x.AvlItmEpsId == idEmpresa &&
+                                                                x.AvlItmLocId == idLocal &&
+                                                                 x.AvlItmIstId == idInstalacao).ToListAsync();
+
+                //var inventarios = await _dbContext.AvlItms.FirstOrDefaultAsync(x => x.AvlItmIstId == idInstalacao);
+
+                if (inventarios == null)
+                {
+                    resposta.Mensagem = "Nenhum Registro foi localizado";
+                    resposta.Status = false;
+                    return resposta;
+                }
+
+                resposta.Dados = inventarios;
+                resposta.Mensagem = "Registros localizados";
+                return resposta;
+
+            }
+            catch (Exception ex)
+            {
+                resposta.Mensagem = ex.Message;
+                resposta.Status = false;
+                return resposta;
+            }
+
+        }
+
+        public async Task<ResponseModel<List<AvlItm>>> ListarPorCentroDeCusto(int? idEmpresa, int? idLocal, int? idCentroDeCusto, int? idInstalacao)
+        {
+            ResponseModel<List<AvlItm>> resposta = new ResponseModel<List<AvlItm>>();
+
+            try
+            {
+                var inventarios = await _dbContext.AvlItms.Where(x => x.AvlItmEpsId == idEmpresa &&
+                                                                x.AvlItmLocId == idLocal &&
+                                                                x.AvlItmCecId == idCentroDeCusto &&
+                                                                 x.AvlItmIstId == idInstalacao).ToListAsync();
+
+                //var inventarios = await _dbContext.AvlItms.FirstOrDefaultAsync(x => x.AvlItmIstId == idInstalacao);
+
+                if (inventarios == null)
+                {
+                    resposta.Mensagem = "Nenhum Registro foi localizado";
+                    resposta.Status = false;
+                    return resposta;
+                }
+
+                resposta.Dados = inventarios;
+                resposta.Mensagem = "Registros localizados";
+                return resposta;
+
+            }
+            catch (Exception ex)
+            {
+                resposta.Mensagem = ex.Message;
+                resposta.Status = false;
+                return resposta;
+            }
+
+        }
+
         public async Task<ResponseModel<AvlItm>> BuscarPorId(int? id, int? idEmpresa, int? idInstalacao)
         {
             ResponseModel<AvlItm> resposta = new ResponseModel<AvlItm>();

@@ -31,5 +31,5 @@ public partial class Itm
     [NotMapped]
     public virtual Usr? ItmUsrExc { get; set; }
     [NotMapped]
-    public virtual Usr ItmUsrInc { get; set; } = null!;
+    public virtual Usr? ItmUsrInc { get; set; } = null!;
 }

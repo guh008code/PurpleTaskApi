@@ -24,6 +24,22 @@ namespace PurpleTask.Controllers
             return Ok(inventario);
         }
 
+        [HttpGet("ListarPorLocal/{idEmpresa}/{idLocal}/{idInstalacao}")]
+        [Authorize(Roles = "inventario")]
+        public async Task<ActionResult<ResponseModel<List<AvlItm>>>> ListarPorLocal(int? idEmpresa, int? idLocal, int? idInstalacao)
+        {
+            var inventarios = await inventarioRepositorio.ListarPorLocal(idEmpresa, idLocal, idInstalacao);
+            return Ok(inventarios);
+        }
+
+        [HttpGet("ListarPorCentroDeCusto/{idEmpresa}/{idLocal}/{idCentroDeCusto}/{idInstalacao}")]
+        [Authorize(Roles = "inventario")]
+        public async Task<ActionResult<ResponseModel<List<AvlItm>>>> ListarPorCentroDeCusto(int? idEmpresa, int? idLocal, int? idCentroDeCusto, int? idInstalacao)
+        {
+            var inventarios = await inventarioRepositorio.ListarPorCentroDeCusto(idEmpresa, idLocal, idCentroDeCusto, idInstalacao);
+            return Ok(inventarios);
+        }
+
         [HttpGet("BuscarPorId/{idIventario}/{idEmpresa}/{idInstalacao}")]
         [Authorize(Roles = "inventario")]
         public async Task<ActionResult<ResponseModel<AvlItm>>> BuscarPorId(int? idIventario, int? idEmpresa, int? idInstalacao)

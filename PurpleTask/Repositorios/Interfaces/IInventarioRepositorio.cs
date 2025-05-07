@@ -6,6 +6,10 @@ namespace PurpleTask.Repositorios.Interfaces
     {
         Task<ResponseModel<List<AvlItm>>> ListarTodos(int? idEmpresa, int? idInstalacao);
 
+        Task<ResponseModel<List<AvlItm>>> ListarPorLocal(int? idEmpresa, int? idLocal, int? idInstalacao);
+
+        Task<ResponseModel<List<AvlItm>>> ListarPorCentroDeCusto(int? idEmpresa, int? idLocal, int? idCentroDeCusto, int? idInstalacao);
+
         Task<ResponseModel<AvlItm>> BuscarPorId(int? id, int? idEmpresa, int? idInstalacao);
 
         Task<ResponseModel<List<AvlItm>>> BuscarPlaqueta(int? AvlItmPlq, int? idEmpresa, int? idInstalacao);

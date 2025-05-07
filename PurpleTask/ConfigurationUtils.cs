@@ -153,6 +153,7 @@ namespace PurpleTask
                     new Claim(ClaimTypes.Role, "setor"),
                     new Claim(ClaimTypes.Role, "empresa"),
                     new Claim(ClaimTypes.Role, "items"),
+                    new Claim(ClaimTypes.Role, "acesso"),
                     new Claim("email", user.UsrEma.ToString()),
                     new Claim("id", user.UsrId.ToString()),
 

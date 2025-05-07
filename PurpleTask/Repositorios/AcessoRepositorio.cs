@@ -48,5 +48,41 @@ namespace PurpleTask.Repositorios
                 return resposta;
             }
         }
+
+
+        public async Task<ResponseModel<Usr>> Atualizar(Usr usuario)
+        {
+            ResponseModel<Usr> resposta = new ResponseModel<Usr>();
+
+            try
+            {
+                var oUsuario = await _dbContext.Usrs.FirstOrDefaultAsync(user => user.UsrId == usuario.UsrId);
+
+                if (oUsuario == null)
+                {
+                    resposta.Mensagem = "Nenhum usuário encontrado.";
+                    resposta.Status = false;
+                    return resposta;
+                }
+
+                oUsuario.UsrId = usuario.UsrId;
+                oUsuario.UsrSnh = ConfigurationUtils.Criptografar(usuario.UsrSnh.Replace("'", ""));
+
+                _dbContext.Update(oUsuario);
+                await _dbContext.SaveChangesAsync();
+
+                //resposta.Dados = await _dbContext.Usuarios.ToListAsync();
+                resposta.Mensagem = "Usuário atualizado com sucesso";
+
+                return resposta;
+
+            }
+            catch (Exception ex)
+            {
+                resposta.Mensagem = ex.Message;
+                resposta.Status = false;
+                return resposta;
+            }
+        }
     }
 }

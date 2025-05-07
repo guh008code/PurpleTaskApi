@@ -6,5 +6,7 @@ namespace PurpleTask.Repositorios.Interfaces
     {
         Task<ResponseModel<AuthToken>> Login(Login login);
 
+        Task<ResponseModel<Usr>> Atualizar(Usr usuario);
+
     }
 }
