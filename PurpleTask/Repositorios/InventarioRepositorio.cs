@@ -18,7 +18,7 @@ namespace PurpleTask.Repositorios
             try
             {
                 var inventarios = await _dbContext.AvlItms.Where(x => x.AvlItmEpsId == idEmpresa &&
-                                                                 x.AvlItmIstId == idInstalacao).ToListAsync();
+                                                                 x.AvlItmIstId == idInstalacao).OrderBy(x=>x.AvlItmPlq).ToListAsync();
 
                 //var inventarios = await _dbContext.AvlItms.FirstOrDefaultAsync(x => x.AvlItmIstId == idInstalacao);
 
@@ -60,7 +60,7 @@ namespace PurpleTask.Repositorios
             {
                 var inventarios = await _dbContext.AvlItms.Where(x => x.AvlItmEpsId == idEmpresa &&
                                                                 x.AvlItmLocId == idLocal &&
-                                                                 x.AvlItmIstId == idInstalacao).ToListAsync();
+                                                                 x.AvlItmIstId == idInstalacao).OrderBy(x => x.AvlItmPlq).ToListAsync();
 
                 //var inventarios = await _dbContext.AvlItms.FirstOrDefaultAsync(x => x.AvlItmIstId == idInstalacao);
 
@@ -103,7 +103,7 @@ namespace PurpleTask.Repositorios
                 var inventarios = await _dbContext.AvlItms.Where(x => x.AvlItmEpsId == idEmpresa &&
                                                                 x.AvlItmLocId == idLocal &&
                                                                 x.AvlItmCecId == idCentroDeCusto &&
-                                                                 x.AvlItmIstId == idInstalacao).ToListAsync();
+                                                                 x.AvlItmIstId == idInstalacao).OrderBy(x => x.AvlItmPlq).ToListAsync();
 
                 //var inventarios = await _dbContext.AvlItms.FirstOrDefaultAsync(x => x.AvlItmIstId == idInstalacao);
 
@@ -176,7 +176,7 @@ namespace PurpleTask.Repositorios
             {
                 var inventarios = await _dbContext.AvlItms.Where(x => x.AvlItmPlq == AvlItmPlq && 
                                                     x.AvlItmEpsId == idEmpresa &&
-                                                    x.AvlItmIstId == idInstalacao).ToListAsync();
+                                                    x.AvlItmIstId == idInstalacao).OrderBy(x => x.AvlItmPlq).ToListAsync();
 
 
                 if (inventarios == null)
@@ -217,7 +217,7 @@ namespace PurpleTask.Repositorios
                 var inventarios = await _dbContext.AvlItms.Where(x => x.AvlItmPlq == AvlItmPlq &&
                                                     x.AvlItmEpsId == idEmpresa &&
                                                     x.AvlItmLocId == idLocal &&
-                                                    x.AvlItmIstId == idInstalacao).ToListAsync();
+                                                    x.AvlItmIstId == idInstalacao).OrderBy(x => x.AvlItmPlq).ToListAsync();
 
 
                 if (inventarios == null)
@@ -247,6 +247,7 @@ namespace PurpleTask.Repositorios
                 return resposta;
             }
         }
+        
         public async Task<ResponseModel<List<AvlItm>>> BuscarPlaquetaPorCentroDeCusto(int? AvlItmPlq, int? idEmpresa, int? idLocal, int? idCentroDeCusto, int? idInstalacao)
         {
             ResponseModel<List<AvlItm>> resposta = new ResponseModel<List<AvlItm>>();
@@ -257,7 +258,7 @@ namespace PurpleTask.Repositorios
                                                     x.AvlItmEpsId == idEmpresa &&
                                                     x.AvlItmLocId == idLocal &&
                                                     x.AvlItmCecId == idCentroDeCusto &&
-                                                    x.AvlItmIstId == idInstalacao).ToListAsync();
+                                                    x.AvlItmIstId == idInstalacao).OrderBy(x => x.AvlItmPlq).ToListAsync();
 
 
                 if (inventarios == null)
@@ -287,7 +288,6 @@ namespace PurpleTask.Repositorios
                 return resposta;
             }
         }
-
 
         public async Task<ResponseModel<AvlItm>> Adicionar(AvlItm inventario)
         {
