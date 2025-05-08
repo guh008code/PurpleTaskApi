@@ -28,6 +28,15 @@ namespace PurpleTask.Repositorios
                     resposta.Status = false;
                     return resposta;
                 }
+                else
+                {
+                    if (inventarios.Count <= 0)
+                    {
+                        resposta.Mensagem = "Nenhum Registro foi localizado";
+                        resposta.Status = false;
+                        return resposta;
+                    }
+                }
 
                 resposta.Dados = inventarios;
                 resposta.Mensagem = "Registros localizados";
@@ -60,6 +69,15 @@ namespace PurpleTask.Repositorios
                     resposta.Mensagem = "Nenhum Registro foi localizado";
                     resposta.Status = false;
                     return resposta;
+                }
+                else
+                {
+                    if (inventarios.Count <= 0)
+                    {
+                        resposta.Mensagem = "Nenhum Registro foi localizado";
+                        resposta.Status = false;
+                        return resposta;
+                    }
                 }
 
                 resposta.Dados = inventarios;
@@ -95,6 +113,15 @@ namespace PurpleTask.Repositorios
                     resposta.Status = false;
                     return resposta;
                 }
+                else
+                {
+                    if (inventarios.Count <= 0)
+                    {
+                        resposta.Mensagem = "Nenhum Registro foi localizado";
+                        resposta.Status = false;
+                        return resposta;
+                    }
+                }
 
                 resposta.Dados = inventarios;
                 resposta.Mensagem = "Registros localizados";
@@ -127,6 +154,7 @@ namespace PurpleTask.Repositorios
                     return resposta;
                 }
 
+
                 resposta.Dados = inventario;
                 resposta.Mensagem = "Registro localizado";
                 return resposta;
@@ -157,11 +185,100 @@ namespace PurpleTask.Repositorios
                     resposta.Status = false;
                     return resposta;
                 }
+                else
+                {
+                    if (inventarios.Count <= 0)
+                    {
+                        resposta.Mensagem = "Nenhum Registro foi localizado";
+                        resposta.Status = false;
+                        return resposta;
+                    }
+                }
 
                 resposta.Dados = inventarios;
                 resposta.Mensagem = "Registros localizados";
                 return resposta;
 
+            }
+            catch (Exception ex)
+            {
+                resposta.Mensagem = ex.Message;
+                resposta.Status = false;
+                return resposta;
+            }
+        }
+
+        public async Task<ResponseModel<List<AvlItm>>> BuscarPlaquetaPorLocal(int? AvlItmPlq, int? idEmpresa, int? idLocal, int? idInstalacao)
+        {
+            ResponseModel<List<AvlItm>> resposta = new ResponseModel<List<AvlItm>>();
+
+            try
+            {
+                var inventarios = await _dbContext.AvlItms.Where(x => x.AvlItmPlq == AvlItmPlq &&
+                                                    x.AvlItmEpsId == idEmpresa &&
+                                                    x.AvlItmLocId == idLocal &&
+                                                    x.AvlItmIstId == idInstalacao).ToListAsync();
+
+
+                if (inventarios == null)
+                {
+                    resposta.Mensagem = "Nenhum Registro foi localizado";
+                    resposta.Status = false;
+                    return resposta;
+                }
+                else
+                {
+                    if (inventarios.Count <= 0)
+                    {
+                        resposta.Mensagem = "Nenhum Registro foi localizado";
+                        resposta.Status = false;
+                        return resposta;
+                    }
+                }
+
+                resposta.Dados = inventarios;
+                resposta.Mensagem = "Registros localizados";
+                return resposta;
+            }
+            catch (Exception ex)
+            {
+                resposta.Mensagem = ex.Message;
+                resposta.Status = false;
+                return resposta;
+            }
+        }
+        public async Task<ResponseModel<List<AvlItm>>> BuscarPlaquetaPorCentroDeCusto(int? AvlItmPlq, int? idEmpresa, int? idLocal, int? idCentroDeCusto, int? idInstalacao)
+        {
+            ResponseModel<List<AvlItm>> resposta = new ResponseModel<List<AvlItm>>();
+
+            try
+            {
+                var inventarios = await _dbContext.AvlItms.Where(x => x.AvlItmPlq == AvlItmPlq &&
+                                                    x.AvlItmEpsId == idEmpresa &&
+                                                    x.AvlItmLocId == idLocal &&
+                                                    x.AvlItmCecId == idCentroDeCusto &&
+                                                    x.AvlItmIstId == idInstalacao).ToListAsync();
+
+
+                if (inventarios == null)
+                {
+                    resposta.Mensagem = "Nenhum Registro foi localizado";
+                    resposta.Status = false;
+                    return resposta;
+                }
+                else
+                {
+                    if (inventarios.Count <= 0)
+                    {
+                        resposta.Mensagem = "Nenhum Registro foi localizado";
+                        resposta.Status = false;
+                        return resposta;
+                    }
+                }
+
+                resposta.Dados = inventarios;
+                resposta.Mensagem = "Registros localizados";
+                return resposta;
             }
             catch (Exception ex)
             {

@@ -63,6 +63,15 @@ namespace PurpleTask.Repositorios
                         resposta.Status = false;
                         return resposta;
                     }
+                    else
+                    {
+                        if (empresas.Count <= 0)
+                        {
+                            resposta.Mensagem = "Nenhum Registro foi localizado";
+                            resposta.Status = false;
+                            return resposta;
+                        }
+                    }
 
                     resposta.Dados = empresas;
                     resposta.Mensagem = "Registro localizado";
