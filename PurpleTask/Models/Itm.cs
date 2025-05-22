@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace PurpleTask.Models;
 
@@ -8,7 +9,7 @@ public partial class Itm
 {
     public int ItmId { get; set; }
 
-    public string ItmNom { get; set; } = null!;
+    public string? ItmNom { get; set; } 
 
     public int ItmSts { get; set; }
 
@@ -25,11 +26,13 @@ public partial class Itm
     public DateTime? ItmDatExc { get; set; }
 
     public int? ItmIstId { get; set; }
-
+    [JsonIgnore]
     [NotMapped]
     public virtual Usr? ItmUsrAlt { get; set; }
+    [JsonIgnore]
     [NotMapped]
     public virtual Usr? ItmUsrExc { get; set; }
+    [JsonIgnore]
     [NotMapped]
-    public virtual Usr? ItmUsrInc { get; set; } = null!;
+    public virtual Usr? ItmUsrInc { get; set; }
 }

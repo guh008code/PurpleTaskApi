@@ -1,6 +1,7 @@
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -71,6 +72,7 @@ namespace PurpleTask
             //builder.Services.AddDbContext<PurpleTaskDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("BaseDados")));
             builder.Services.AddDbContext<PurpleMgmContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("BaseDados")));
 
+
             builder.Services.AddScoped<IAcessoRepositorio, AcessoRepositorio>();
             builder.Services.AddScoped<IInventarioRepositorio, InventarioRepositorio>();
             builder.Services.AddScoped<ISetorRepositorio, SetorRepositorio>();
@@ -78,8 +80,10 @@ namespace PurpleTask
             builder.Services.AddScoped<ILocalRepositorio, LocalRepositorio>();
             builder.Services.AddScoped<IEmpresaRepositorio, EmpresaRepositorio>();
             builder.Services.AddScoped<IItemsRepositorio, ItemsRepositorio>();
+            builder.Services.AddScoped<ILeadsRepositorio, LeadsRepositorio>();
 
-            var key = Encoding.ASCII.GetBytes(ConfigurationUtils.PrivateKey);
+
+            var key = Encoding.ASCII.GetBytes(builder.Configuration.GetValue<string>("KeyEncript:hash"));
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

@@ -10,7 +10,7 @@ public partial class Usr
     public int UsrId { get; set; }
     [JsonIgnore]
     [NotMapped]
-    public string UsrCod { get; set; } = null!;
+    public string? UsrCod { get; set; }
     [JsonIgnore]
     [NotMapped]
     public string? UsrNom { get; set; }

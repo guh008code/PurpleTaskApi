@@ -26,5 +26,22 @@ namespace PurpleTask.Controllers
             return Ok(items);
         }
 
+
+        [HttpPost("ListarPorDescricao/")]
+        [Authorize(Roles = "items")]
+        public async Task<ActionResult<ResponseModel<List<Itm>>>> ListarPorDescricao(Itm item)
+        {
+            var items = await itemsRepositorio.ListarPorDescricao(item);
+            return Ok(items);
+        }
+
+        [HttpPost("Adicionar")]
+        [Authorize(Roles = "items")]
+        public async Task<ActionResult<ResponseModel<Itm>>> Adicionar(Itm item)
+        {
+            var items = await itemsRepositorio.Adicionar(item);
+            return Ok(items);
+        }
+
     }
 }

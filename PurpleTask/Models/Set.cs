@@ -13,8 +13,6 @@ public partial class Set
 
     public int SetLocId { get; set; }
 
-    public int SetCecId { get; set; }
-
     public string SetCod { get; set; } = null!;
 
     public string SetNom { get; set; } = null!;

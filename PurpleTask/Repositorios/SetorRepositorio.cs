@@ -46,19 +46,18 @@ namespace PurpleTask.Repositorios
             }
         }
 
-        public async Task<ResponseModel<List<Set>>> ListarTodos(int? idEmpresa, int? idLocal, int? idCentroDeCusto, int? idInstalacao)
+        public async Task<ResponseModel<List<Set>>> ListarTodos(int? idEmpresa, int? idLocal, int? idInstalacao)
         {
 
             ResponseModel<List<Set>> resposta = new ResponseModel<List<Set>>();
             //ResponseModel<Set> resposta = new ResponseModel<Set>();
             try
             {
-                if (!string.IsNullOrEmpty(idEmpresa.ToString()) && !string.IsNullOrEmpty(idLocal.ToString()) && !string.IsNullOrEmpty(idCentroDeCusto.ToString()) && !string.IsNullOrEmpty(idInstalacao.ToString()))
+                if (!string.IsNullOrEmpty(idEmpresa.ToString()) && !string.IsNullOrEmpty(idLocal.ToString()) && !string.IsNullOrEmpty(idInstalacao.ToString()))
                 {
 
                     var setores = await _dbContext.Sets.Where(x => x.SetEpsId == idEmpresa
                                                                             && x.SetLocId == idLocal
-                                                                            && x.SetCecId == idCentroDeCusto
                                                                             && x.SetIstId == idInstalacao).ToListAsync();
                     if (setores == null)
                     {
@@ -80,6 +79,91 @@ namespace PurpleTask.Repositorios
                     resposta.Mensagem = "Registro localizado";
 
                 }
+
+                return resposta;
+
+            }
+            catch (Exception ex)
+            {
+                resposta.Mensagem = ex.Message;
+                resposta.Status = false;
+                return resposta;
+            }
+        }
+
+        public async Task<ResponseModel<List<Set>>> ListarPorDescricao(Set setor)
+        {
+
+            ResponseModel<List<Set>> resposta = new ResponseModel<List<Set>>();
+            //ResponseModel<Set> resposta = new ResponseModel<Set>();
+            try
+            {
+                if (!string.IsNullOrEmpty(setor.SetEpsId.ToString()) && !string.IsNullOrEmpty(setor.SetLocId.ToString()) && !string.IsNullOrEmpty(setor.SetIstId.ToString()))
+                {
+
+                    var setores = await _dbContext.Sets.Where(x => x.SetEpsId == setor.SetEpsId
+                                                                            && x.SetLocId == setor.SetLocId
+                                                                            && x.SetIstId == setor.SetIstId
+                                                                            && x.SetNom == setor.SetNom).ToListAsync();
+                    if (setores == null)
+                    {
+                        resposta.Mensagem = "Nenhum Registro foi localizado";
+                        resposta.Status = false;
+                        return resposta;
+                    }
+                    else
+                    {
+                        if (setores.Count <= 0)
+                        {
+                            resposta.Mensagem = "Nenhum Registro foi localizado";
+                            resposta.Status = false;
+                            return resposta;
+                        }
+                    }
+
+                    resposta.Dados = setores;
+                    resposta.Mensagem = "Registro localizado";
+
+                }
+
+                return resposta;
+
+            }
+            catch (Exception ex)
+            {
+                resposta.Mensagem = ex.Message;
+                resposta.Status = false;
+                return resposta;
+            }
+        }
+
+        public async Task<ResponseModel<Set>> Adicionar(Set setor)
+        {
+            ResponseModel<Set> resposta = new ResponseModel<Set>();
+
+            try
+            {
+                var setores = new Set()
+                {
+                    SetEpsId = setor.SetEpsId,
+                    SetLocId = setor.SetLocId,
+                    SetCod = setor.SetCod,
+                    SetNom = setor.SetNom,
+                    SetSts = setor.SetSts,
+                    SetUsrIncId = setor.SetUsrIncId,
+                    SetUsrAltId = setor.SetUsrAltId,
+                    SetUsrExcId = (int?)null,
+                    SetDatInc = DateTime.Now,
+                    SetDatAlt = DateTime.Now,
+                    SetDatExc = (DateTime?)null,
+                    SetIstId = setor.SetIstId
+                };
+
+                _dbContext.Add(setores);
+                await _dbContext.SaveChangesAsync();
+
+                resposta.Dados = setores;
+                resposta.Mensagem = "Setor incluído com sucesso";
 
                 return resposta;
 

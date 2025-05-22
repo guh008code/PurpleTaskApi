@@ -12,12 +12,12 @@ namespace PurpleTask.Repositorios
             _dbContext = purpleTaskDBContex;
         }
 
-        public async Task<ResponseModel<AuthToken>> Login(Login login)
+        public async Task<ResponseModel<AuthToken>> Login(Login login, string hash)
         {
             ResponseModel<AuthToken> resposta = new ResponseModel<AuthToken>();
             resposta.Dados = new AuthToken();
 
-            login.Senha = ConfigurationUtils.Criptografar(login.Senha.Replace("'",""));
+            login.Senha = ConfigurationUtils.Criptografar(login.Senha.Replace("'",""), hash);
             try
             {
 
@@ -35,7 +35,7 @@ namespace PurpleTask.Repositorios
                 resposta.Dados.IdPerfil = usuarios.UsrPfl.ToString();
                 resposta.Dados.Email = usuarios.UsrEma;
                 resposta.Dados.Instalacao = usuarios.UsrIstId.ToString();
-                resposta.Dados.AcessToken = ConfigurationUtils.GenerateToken(usuarios);
+                resposta.Dados.AcessToken = ConfigurationUtils.GenerateToken(usuarios, hash);
 
                 resposta.Mensagem = "Login e token gerado com sucesso.";
                 return resposta;
@@ -50,7 +50,7 @@ namespace PurpleTask.Repositorios
         }
 
 
-        public async Task<ResponseModel<Usr>> Atualizar(Usr usuario)
+        public async Task<ResponseModel<Usr>> Atualizar(Usr usuario, string hash)
         {
             ResponseModel<Usr> resposta = new ResponseModel<Usr>();
 
@@ -66,7 +66,7 @@ namespace PurpleTask.Repositorios
                 }
 
                 oUsuario.UsrId = usuario.UsrId;
-                oUsuario.UsrSnh = ConfigurationUtils.Criptografar(usuario.UsrSnh.Replace("'", ""));
+                oUsuario.UsrSnh = ConfigurationUtils.Criptografar(usuario.UsrSnh.Replace("'", ""), hash);
 
                 _dbContext.Update(oUsuario);
                 await _dbContext.SaveChangesAsync();

@@ -17,6 +17,8 @@ public partial class PurpleMgmContext : DbContext
 
     public virtual DbSet<Ac> Acs { get; set; }
 
+    public virtual DbSet<Led> Led { get; set; }
+
     public virtual DbSet<AreAtu> AreAtus { get; set; }
 
     public virtual DbSet<AvlItm> AvlItms { get; set; }
@@ -554,7 +556,6 @@ public partial class PurpleMgmContext : DbContext
             entity.ToTable("SET");
 
             entity.Property(e => e.SetId).HasColumnName("SET_ID");
-            entity.Property(e => e.SetCecId).HasColumnName("SET_CEC_ID");
             entity.Property(e => e.SetCod)
                 .HasMaxLength(10)
                 .IsUnicode(false)
@@ -579,11 +580,6 @@ public partial class PurpleMgmContext : DbContext
             entity.Property(e => e.SetUsrAltId).HasColumnName("SET_USR_ALT_ID");
             entity.Property(e => e.SetUsrExcId).HasColumnName("SET_USR_EXC_ID");
             entity.Property(e => e.SetUsrIncId).HasColumnName("SET_USR_INC_ID");
-
-            entity.HasOne(d => d.SetCec).WithMany(p => p.Sets)
-                .HasForeignKey(d => d.SetCecId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_SET_CEC_ID");
 
             entity.HasOne(d => d.SetEps).WithMany(p => p.Sets)
                 .HasForeignKey(d => d.SetEpsId)
@@ -675,6 +671,41 @@ public partial class PurpleMgmContext : DbContext
                 .HasForeignKey(d => d.UsrIstId)
                 .HasConstraintName("FK_USR_IST");
         });
+
+        modelBuilder.Entity<Led>(entity =>
+        {
+            entity.HasKey(e => e.LedId).IsClustered(false);
+
+            entity.ToTable("LEAD");
+
+            entity.Property(e => e.LedId).HasColumnName("LEAD_ID");
+
+            entity.Property(e => e.LedDatInc)
+                .HasColumnType("datetime")
+                .HasColumnName("LEAD_DAT_INC");
+
+            entity.Property(e => e.LedNom)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("LEAD_NOM");
+
+            entity.Property(e => e.LedMail)
+                .HasMaxLength(200)
+                .IsUnicode(false)
+                .HasColumnName("LEAD_MAIL");
+
+            entity.Property(e => e.LedTel)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("LEAD_TEL");
+
+            entity.Property(e => e.LedDes)
+                .HasMaxLength(300)
+                .IsUnicode(false)
+                .HasColumnName("LEAD_DES");
+
+        });
+
 
         OnModelCreatingPartial(modelBuilder);
     }
