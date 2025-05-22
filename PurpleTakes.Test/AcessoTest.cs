@@ -1,6 +1,6 @@
 namespace PurpleTasks.Test
 {
-    public class UnitTest1
+    public class AcessoTest
     {
         [Fact]
         public void Test1()
